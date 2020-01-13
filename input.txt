@@ -1,0 +1,28 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"io"
+	"os"
+
+	"github.com/rs/zerolog/log"
+)
+
+func main() {
+	inputFile, err := os.Open("input.text")
+	if err != nil {
+		log.Error().Msg(err.Error())
+	}
+	defer inputFile.Close()
+
+	inputReader := bufio.NewReader(inputFile)
+	for {
+		inputString, readerError := inputReader.ReadString('\n')
+		if readerError == io.EOF {
+			return
+		}
+		fmt.Printf("The input was: %s", inputString)
+	}
+
+}
